@@ -65,6 +65,24 @@
 		}
 	});
 
+	let threadStats = $derived.by( ()=> {
+		let stats = {
+			'promptTokens': 0,
+			'completionTokens': 0,
+			'totalTokens': 0,
+		};
+		
+		messages.forEach((message) => {
+			stats.promptTokens += message?.promptTokens || 0;
+			stats.completionTokens += message?.completionTokens || 0;
+			stats.totalTokens += message?.totalTokens || 0;
+
+		});
+		return stats;
+
+	});
+
+
 	onMount(() => {
 		messages = data.messages;
 	});
@@ -90,6 +108,7 @@
 			bind:hideSidebarEvent
 			bind:threads
 			session={data.session}
+			threadStats={threadStats}
 		/>
 
 		<!-- Scrollable chat messages area -->

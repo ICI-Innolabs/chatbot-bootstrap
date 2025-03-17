@@ -1,6 +1,10 @@
 export type Message = {
-	message: string;
-	role: 'human' | 'ai';
-	timestamp: number;
-	finished: boolean | false;
+	id: string;
+	createdAt: Date;
+	userId: string;
+	threadId: string;
+	content: string;
+	promptTokens: number;
+	completionTokens: number;
+	totalTokens: number;
 };

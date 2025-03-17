@@ -34,7 +34,7 @@
 		}
 	});
 
-	// Override the way links are rendered
+	// Override the way links are rendered (change color)
 	const defaultRender = md.renderer.rules.link_open || function(tokens, idx, options, env, self) {
       return self.renderToken(tokens, idx, options);
 	};
@@ -62,7 +62,6 @@
 			highlightTheme = 'atom-one-light';
 		}
 	}
-
 
 	$effect(() => {
 		setHighlightTheme();
@@ -123,7 +122,7 @@
 				{#if message.role === 'ai' && index === messages.length - 1 && showTypewriter}
 					{#if message.content.length > 1000}
 						<!-- Show a skeleton loader while the markdown is being rendered -->
-						<Skeleton height="200px" />
+						<Skeleton style="height: 200px;" />
 					{/if}
 					{#if renderedOutput}
 						<!-- Once typewriter is done, display the rendered markdown -->

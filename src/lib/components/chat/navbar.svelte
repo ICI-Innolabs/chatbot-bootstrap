@@ -9,6 +9,8 @@
 	import * as Avatar from '$lib/components/ui/avatar';
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu';
 	import * as AlertDialog from '$lib/components/ui/alert-dialog';
+	import * as Popover from "$lib/components/ui/popover";
+	import * as Table from "$lib/components/ui/table";
 
 	let innerWidth = $state(0);
 	let showSidebarButton = $state(true);
@@ -18,7 +20,8 @@
 		currentThread = $bindable(),
 		threads = $bindable(),
 		hideSidebarEvent = $bindable(),
-		session
+		session,
+		threadStats,
 	} = $props();
 
 	let chatTitle = $state('Untitled');
@@ -147,20 +150,46 @@
 						></span>
 					</div>
 				{/if}
-				<button
-					class="flex cursor-pointer rounded-lg p-2 transition dark:hover:bg-gray-700"
-					aria-label="Share"
-				>
-					<Icons.share size="20" />
-				</button>
+				{#if threadStats.totalTokens > 0}
+					<Popover.Root>
+						<Popover.Trigger>
+							<button
+								class="flex cursor-pointer rounded-lg mr-2 p-2 transition dark:hover:bg-gray-700"
+								aria-label="Share"
+							>
+								<Icons.chartColumnStacked size="20" />
+							</button>
+						</Popover.Trigger>
+						<Popover.Content class="dark:bg-slate-900">
+							  <Table.Root>
+								<Table.Caption>Tokens usage</Table.Caption>
+								<Table.Body>
+								  <Table.Row>
+									<Table.Cell class="font-medium">Input tokens</Table.Cell>
+									<Table.Cell class="text-right">{threadStats.promptTokens}</Table.Cell>
+								  </Table.Row>
+								  <Table.Row>
+									<Table.Cell class="font-medium">Output tokens</Table.Cell>
+									<Table.Cell class="text-right">{threadStats.completionTokens}</Table.Cell>
+								  </Table.Row>
+								  <Table.Row>
+									<Table.Cell class="font-bold">Total tokens</Table.Cell>
+									<Table.Cell class="text-right">{threadStats.totalTokens}</Table.Cell>
+								  </Table.Row>
+								</Table.Body>
+							  </Table.Root>
+						</Popover.Content>
+					</Popover.Root>
+				{/if}
+				
 				<button
 					onclick={toggleMode}
-					class="self-center hover:scale-110 dark:hover:text-gray-300"
+					class="self-center mr-2 hover:scale-110 dark:hover:text-gray-300"
 					id="open-settings-button"
 					aria-label="Toggle theme"
 				>
-					<Icons.sun size="20" class="hidden transition-all dark:block dark:opacity-50" />
-					<Icons.moon size="20" class="opacity-50 transition-all dark:hidden" />
+					<Icons.sun size="20" class="hidden transition-all dark:block dark:opacity-90" />
+					<Icons.moon size="20" class="opacity-90 transition-all dark:hidden" />
 					<span class="sr-only">Toggle theme</span>
 				</button>
 				<DropdownMenu.Root>

@@ -21,7 +21,8 @@ import {
     LogOut,
     CircleAlert,
     LoaderCircle,
-    Trash2
+    Trash2,
+    ChartColumnStacked
 } from 'lucide-svelte';
 
 export const Icons = {
@@ -44,6 +45,7 @@ export const Icons = {
     circleAlert: CircleAlert,
     loaderCircle: LoaderCircle,
     trash: Trash2,
+    chartColumnStacked: ChartColumnStacked,
     github: GitHub,
     google: Google,
     twitter: Twitter,
